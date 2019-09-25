@@ -4,6 +4,7 @@ const cors = require('cors')
 const db = require('./config/database')
 const {PORT} = require('./config/envir')
 const userRouter = require('./routes/user')
+const addressRouter = require('./routes/address')
 
 const bodyParser = require('body-parser')
 const app = express()
@@ -25,7 +26,8 @@ db.then(() => {
     console.log("error happened when to reach mongodb connection", error);
   })
 
-  app.use(userRouter);
+  app.use('/', userRouter);
+  app.use('/address', addressRouter);
 
 app.listen(port, () => {
   console.log(`udah jalan di port ${port}`);

@@ -5,10 +5,14 @@ var userSchema = new Schema({
   name: String,
   password: String,
   email: String,
-  phoneNumber:String
-}, 
-{timestamps: true}
-);
+  phoneNumber: String,
+  addresses: [{
+    type: Schema.Types.ObjectId,
+    ref: "address"
+  }]
+}, {
+  timestamps: true
+});
 
 const User = mongoose.model('users', userSchema)
 

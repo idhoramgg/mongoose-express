@@ -18,25 +18,23 @@ module.exports = {
       }
     })
   },
-    showAll: (req, res) =>{
-      User.find(function (err, result){
-        if(err){
-          res.send({
-            status: 'error',
-            message: err,
-          });
-        }
-        res.send({
-          status: 'success',
-          message:"retrieved successfully",
-          data: result
-        })
-      })
-    },
+  //populate collection address dengan users
+  showAll: (req, res) => {
+    User
+    .find()
+    .populate('addresses', 'address -_id')
+    .then(result => {
+      res.send(result)
+
+    }).catch(error => console.log(error));
+  },
+
   //read
   showDataById: (req, res) => {
-    User.findById({_id: req.params.userId}, function(err, result){
-      if(err) {
+    User.findById({
+      _id: req.params.userId
+    }, (err, result) => {
+      if (err) {
         res.status(400).send({
           message: `no data show`,
           err
@@ -50,8 +48,10 @@ module.exports = {
     })
   },
   deleteUser: (req, res) => {
-    User.deleteOne({_id: req.params.userId}, function(err, result){
-      if(err) {
+    User.deleteOne({
+      _id: req.params.userId
+    }, function (err, result) {
+      if (err) {
         res.status(400).send({
           message: `cannot delete`,
           err
@@ -65,17 +65,24 @@ module.exports = {
     })
   },
   updateUser: (req, res) => {
-    User.findByIdAndUpdate({_id: req.params.userId}, {name: req.body.name, password: req.body.password, email: req.body.email, phoneNumber: req.body.phoneNumber }, function(err, result){
-      if(err) {
+    User.findByIdAndUpdate({
+      _id: req.params.userId
+    }, {
+      name: req.body.name,
+      password: req.body.password,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber
+    }, function (err, result) {
+      if (err) {
         res.status(400).send({
           message: `cannot find and update data`,
           err
         })
       } else {
-          res.status(200).send({
-            message: `update sukses`,
-            result
-          })
+        res.status(200).send({
+          message: `update sukses`,
+          result
+        })
       }
     })
   }
