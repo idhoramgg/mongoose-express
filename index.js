@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.get('/', (req, res) => res.send('Bujang In action'));
+app.get('/', (req, res) => res.send(`<h1>Bujang in action</h1>`));
 
 
 db.then(() => {
