@@ -50,7 +50,7 @@ module.exports = {
   deleteUser: (req, res) => {
     User.deleteOne({
       _id: req.params.userId
-    }, function (err, result) {
+    }, (err, result) => {
       if (err) {
         res.status(400).send({
           message: `cannot delete`,
@@ -72,7 +72,7 @@ module.exports = {
       password: req.body.password,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber
-    }, function (err, result) {
+    }, (err, result) => {
       if (err) {
         res.status(400).send({
           message: `cannot find and update data`,
