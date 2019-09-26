@@ -1,32 +1,45 @@
 const User = require('../models/user');
+const UserImage = require('../models/userImage');
 
 module.exports = {
   //create new
-  addUser: (req, res) => {
-    const newUser = new User(req.body);
-    newUser.save((error, result) => {
-      if (error) {
-        res.status(400).send({
-          message: `error, user failed to created`,
-          error
-        })
-      } else {
-        res.status(200).send({
-          message: `new user created`,
-          result
-        });
-      }
-    })
+  addUser: async (req, res) => {
+    try {
+      //tunggu sampai user dibuat
+      
+      const user = await User.create( {
+        name: req.body.name,
+        email:req.body.email,
+        password:req.body.password,
+        phoneNumber: req.body.phoneNumber
+      });
+      await user.avatar.push(user._id);
+
+      //setelah user dibuat, kirim user id ke user image
+      const userAvatar = await UserImage.create({
+        _id: user._id,
+        filename: req.files[0].filename,
+        path: req.files[0].path
+      });
+      res.status(200).send({
+        message: 'user created',
+        user,
+        userAvatar
+      });
+
+    } catch (error){
+      console.log(error)
+    }
   },
   //populate collection address dengan users
   showAll: (req, res) => {
     User
-    .find()
-    .populate('addresses', 'address -_id')
-    .then(result => {
-      res.send(result)
+      .find()
+      .populate('addresses', 'userImage','address -_id')
+      .then(result => {
+        res.send(result)
 
-    }).catch(error => console.log(error));
+      }).catch(error => console.log(error));
   },
 
   //read
@@ -85,5 +98,12 @@ module.exports = {
         })
       }
     })
+  },
+  uploadImage: (req, res) => {
+    UserImage.create({
+        filename: req.files[0].filename,
+        path: req.files[0].path
+      }).then(result => res.send(result))
+      .catch(error => res.send(error))
   }
 }

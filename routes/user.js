@@ -7,18 +7,14 @@ const {
   showDataById,
   showAll,
   deleteUser,
-  updateUser
+  updateUser,
+  uploadImage
 } = require('../controllers/user')
 
 const upload = require('../config/multer')
 
-router.post('/user', addUser)
-router.post('/user-image', upload.any(), (req, res) => {
-  console.log(true);
-  
-  res.send(req.files);
-
-});
+router.post('/user',upload.any(), addUser)
+router.post('/user-image', upload.any(), uploadImage);
 router.get('/user/:userId', showDataById)
 router.get('/user', showAll)
 router.delete('/user/:userId', deleteUser)

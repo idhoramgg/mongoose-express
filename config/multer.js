@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     if (file.mimetype === "image/jpeg") {
       filetype = "jpg";
     }
-    cb(null, `iniFotoSiUser.${filetype}`)
+    cb(null, file.originalname.replace(/ /g, "_"))
   }
 });
 

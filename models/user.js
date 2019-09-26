@@ -9,6 +9,10 @@ var userSchema = new Schema({
   addresses: [{
     type: Schema.Types.ObjectId,
     ref: "address"
+  }],
+  avatar: [{
+    type: Schema.Types.ObjectId,
+    ref:'userImage'
   }]
 }, {
   timestamps: true

@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.static('./assets/images/'));
+
 app.get('/', (req, res) => res.send(`<h1 style="color:blue; text-align:center; font-size: 36px;">Bujang in action</h1>`));
 
 
