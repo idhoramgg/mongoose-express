@@ -14,9 +14,10 @@ const {
 
 const upload = require('../config/multer')
 
-const authentication = require('../helpers/auth')
+// const authentication = require('../helpers/auth')
+// authentication.tokenValid,
 
-router.post('/register', authentication.tokenValid, addUser)
+router.post('/register',  addUser)
 router.post('/user-image', upload.single('files'), uploadImage);
 router.post('/login', login)
 router.get('/user/:userId', showDataById)
