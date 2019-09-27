@@ -8,17 +8,22 @@ const {
   showAll,
   deleteUser,
   updateUser,
-  uploadImage
+  uploadImage,
+  login
 } = require('../controllers/user')
 
 const upload = require('../config/multer')
 
-router.post('/user',upload.any(), addUser)
-router.post('/user-image', upload.any(), uploadImage);
+const authentication = require('../helpers/auth')
+
+router.post('/register', authentication.tokenValid, addUser)
+router.post('/user-image', upload.single('files'), uploadImage);
+router.post('/login', login)
 router.get('/user/:userId', showDataById)
-router.get('/user', showAll)
+router.get('/user', authentication.tokenValid, showAll)
 router.delete('/user/:userId', deleteUser)
 router.put('/user/:userId', updateUser)
+
 
 
 module.exports = router;

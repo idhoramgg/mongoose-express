@@ -5,7 +5,8 @@ const CONNECTION = MONGOOSE_CONNECTION || `mongodb://localhost:27017/${MONGOOSE_
 
 mongoose.connect(CONNECTION, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useDindAndModify: false
 })
 
 const db = mongoose.connection;
