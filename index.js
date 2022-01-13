@@ -34,7 +34,7 @@ db.then(() => {
 
 app.use('/', userRouter);
 app.use('/address', addressRouter);
-app.use('/comment, commentRouter);
+app.use('/comment', commentRouter);
 
 app.listen(port, () => {
   console.log(`udah jalan di port ${port}`);
