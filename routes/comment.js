@@ -9,6 +9,6 @@ const {
 
 
 
-router.post('/comment',  addComment)
+router.post('/',  addComment)
 
 module.exports = router;
