@@ -15,6 +15,17 @@ module.exports = {
         message: 'error'
       })
     }
-    
   },
+  getComment: async (req, res) => {
+        await Comment.find({})
+          .then(result => {
+            res.status(200).send({
+                message: "Success get All Accounts",
+                data: result
+              });
+          })
+          .catch(error => {
+              console.log(error)
+          });
+      },
 };
