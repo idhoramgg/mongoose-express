@@ -12,6 +12,8 @@ const port = PORT || 3000
 
 const userRouter = require('./routes/user')
 const addressRouter = require('./routes/address')
+const commentRouter = require('./routes/comment')
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -32,6 +34,7 @@ db.then(() => {
 
 app.use('/', userRouter);
 app.use('/address', addressRouter);
+app.use('/comment, commentRouter);
 
 app.listen(port, () => {
   console.log(`udah jalan di port ${port}`);
